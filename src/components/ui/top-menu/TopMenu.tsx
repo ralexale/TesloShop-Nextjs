@@ -39,10 +39,11 @@ export const TopMenu = () => {
 
       {/* Search , Cart , Menu  */}
       <div className="flex items-center">
-        <Link href="/search">
+        <Link href="/search" className="mx-2 ">
           <IoSearchOutline className="w-5 h-5" />
         </Link>
-        <Link href="/cart">
+
+        <Link href="/cart" className="mx-2">
           <div className="relative">
             <span className="absolute text-xs rounded-full text-white px-1 -right-2 font-bold -top-2 bg-blue-500">
               3
@@ -50,6 +51,10 @@ export const TopMenu = () => {
             <IoCartOutline className="w-5 h-5" />
           </div>
         </Link>
+
+        <button className="m-2 p-2 rounded-md transition-all hover:bg-gray-100">
+          Menú
+        </button>
       </div>
     </nav>
   );
