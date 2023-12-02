@@ -4,7 +4,7 @@ interface Props {
   params: { id: string };
 }
 
-export default function ({ params }: Props) {
+export default function CategoryPage({ params }: Props) {
   const { id } = params;
 
   if (id === "kids") {
