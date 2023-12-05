@@ -2,7 +2,7 @@ import { QuantitySelector, Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import Image from "next/image";
 import Link from "next/link";
-
+import { IoTrashOutline } from "react-icons/io5";
 
 const productsInCard = [
   initialData.products[0],
@@ -10,50 +10,76 @@ const productsInCard = [
   initialData.products[2],
 ];
 
-
 export default function CartPage() {
-
-
   return (
     <section className="flex justify-center items-center mb-72 px-10 sm:px-0">
       <div className="flex flex-col w-[1000px] ">
         <Title title="Carrito" />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-
           {/* Carrito */}
-          <div className="flex flex-col mt-5">
+          <div className="flex flex-col  mt-5">
             <span className="text-xl">Agregar mas items</span>
-            <Link href={'/'} className="underline mb-5">Continúa comprando</Link>
-          </div>
+            <Link href={"/"} className="underline mb-5">
+              Continúa comprando
+            </Link>
 
-
-          {/* Items */}
-          {
-            productsInCard.map(product => (
+            {/* Items */}
+            {productsInCard.map((product) => (
               <div key={product.slug} className="flex">
                 <Image
                   src={`/products/${product.images[0]}`}
                   alt={product.title}
                   width={100}
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                  }}
                   height={100}
-                  className="object-cover mr-5 rounded"
+                  className="object-cover mr-5 mb-5 rounded"
                 />
                 <div>
                   <p>{product.title}</p>
                   <span>${product.price}</span>
-                  <QuantitySelector quantity={2} />
+                  <div className="flex gap-3">
+                    <QuantitySelector quantity={2} />
+                    <button className="underline bg-red-500 p-2 rounded ">
+                      <IoTrashOutline className="text-white" size={20} />
+                    </button>
+                  </div>
                 </div>
               </div>
-            ))
-          }
+            ))}
+          </div>
 
-          {/* Checkout */}
+          {/* Checkout - Resumen de Orden */}
 
+          <div className="bg-white rounded-xl  shadow-xl p-7">
+            <h2 className="text-2xl mb-2">Resumen de orden</h2>
+            <div className="grid grid-cols-2 ">
+              <span>No. Productos</span>
+              <span className="text-right">3 Artículos</span>
+
+              <span>Subtotal</span>
+              <span className="text-right">$ 100</span>
+
+              <span>Impuestos (15%)</span>
+              <span className="text-right">$ 100</span>
+
+              <span className="text-2xl mt-5 ">Total</span>
+              <span className="text-right text-2xl mt-5">$ 200</span>
+            </div>
+
+            <div className="mt-5 mb-2 w-full">
+              <Link
+                className="flex btn-primary justify-center"
+                href={"/checkout/address"}
+              >
+                Checkout
+              </Link>
+            </div>
+          </div>
         </div>
-
-
-
       </div>
     </section>
   );
