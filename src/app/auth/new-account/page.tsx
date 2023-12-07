@@ -1,8 +1,10 @@
 
+import { NewAccountForm } from '@/components';
+
 export default function NewAccountPage() {
   return (
-    <div>
-      <h1>Hello Page</h1>
-    </div>
+    <section className="flex flex-col min-h-screen pt-32 sm:pt-52">
+      <NewAccountForm />
+    </section>
   );
 }
