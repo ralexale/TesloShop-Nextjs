@@ -1,8 +1,9 @@
-import { QuantitySelector, Title } from "@/components";
-import { initialData } from "@/seed/seed";
-import Image from "next/image";
 import Link from "next/link";
-import { IoTrashOutline } from "react-icons/io5";
+import { CartSummary, ProductsEdit, Title } from "@/components";
+import { initialData } from "@/seed/seed";
+import { redirect } from "next/navigation";
+
+
 
 const productsInCard = [
   initialData.products[0],
@@ -10,7 +11,15 @@ const productsInCard = [
   initialData.products[2],
 ];
 
+
+
 export default function CartPage() {
+
+
+
+  productsInCard.length === 0 && redirect('/empty')
+
+
   return (
     <section className="flex justify-center items-center mb-72 px-10 sm:px-0">
       <div className="flex flex-col w-[1000px] ">
@@ -25,60 +34,11 @@ export default function CartPage() {
             </Link>
 
             {/* Items */}
-            {productsInCard.map((product) => (
-              <div key={product.slug} className="flex">
-                <Image
-                  src={`/products/${product.images[0]}`}
-                  alt={product.title}
-                  width={100}
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                  }}
-                  height={100}
-                  className="object-cover mr-5 mb-5 rounded"
-                />
-                <div>
-                  <p>{product.title}</p>
-                  <span>${product.price}</span>
-                  <div className="flex gap-3">
-                    <QuantitySelector quantity={2} />
-                    <button className="underline bg-red-500 p-2 rounded ">
-                      <IoTrashOutline className="text-white" size={20} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
+            <ProductsEdit produtcs={productsInCard} />
           </div>
 
           {/* Checkout - Resumen de Orden */}
-
-          <div className="bg-white rounded-xl  shadow-xl p-7">
-            <h2 className="text-2xl mb-2">Resumen de orden</h2>
-            <div className="grid grid-cols-2 ">
-              <span>No. Productos</span>
-              <span className="text-right">3 Artículos</span>
-
-              <span>Subtotal</span>
-              <span className="text-right">$ 100</span>
-
-              <span>Impuestos (15%)</span>
-              <span className="text-right">$ 100</span>
-
-              <span className="text-2xl mt-5 ">Total</span>
-              <span className="text-right text-2xl mt-5">$ 200</span>
-            </div>
-
-            <div className="mt-5 mb-2 w-full">
-              <Link
-                className="flex btn-primary justify-center"
-                href={"/checkout/address"}
-              >
-                Checkout
-              </Link>
-            </div>
-          </div>
+          <CartSummary />
         </div>
       </div>
     </section>
