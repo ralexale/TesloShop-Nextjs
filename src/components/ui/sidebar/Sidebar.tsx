@@ -1,10 +1,11 @@
 "use client"
 
-import Link from 'next/link'
-import { optionsMenuData } from '@/components/utils/options-menu/optionsMenuData'
 import { IoCloseOutline, IoSearchOutline, } from 'react-icons/io5'
-import { useUiStore } from '@/store'
 import clsx from 'clsx'
+import Link from 'next/link'
+
+import { optionsMenuData } from '@/utils'
+import { useUiStore } from '@/store'
 
 
 

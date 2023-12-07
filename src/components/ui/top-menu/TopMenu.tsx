@@ -5,7 +5,9 @@ import Link from "next/link";
 import { useUiStore } from "@/store";
 
 export const TopMenu = () => {
-  const { openSideMenu } = useUiStore()
+  // const { openSideMenu } = useUiStore()
+
+  const openSideMenu = useUiStore(state => state.openSideMenu)
 
   return (
     <nav className="flex px-5 justify-between items-center w-full">
@@ -35,7 +37,7 @@ export const TopMenu = () => {
         </Link>
         <Link
           className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
-          href="/category/kids"
+          href="/category/kid"
         >
           Niños
         </Link>
