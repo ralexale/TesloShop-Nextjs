@@ -17,6 +17,7 @@ async function main() {
     await prisma.category.createMany({
         data: categoriesData,
     });
+
     // const categoriesData = categories.map((category) => ({
     //     name: category,
     // }));
@@ -26,9 +27,9 @@ async function main() {
     const categoriesMap = categoriesDB.reduce((map, category) => {
         map[category.name.toLowerCase()] = category.id;
         return map;
-    }, {} as Record<string, string>); // <string=shirt, string=categoryId
+    }, {} as Record<string, string>); // <string=shirt, string=categoryId>
 
-    // Productos
+    // 3. Productos
 
     products.forEach(async (product) => {
         const { images, type, ...rest } = product;
@@ -41,6 +42,15 @@ async function main() {
         });
 
         // Imagenes
+
+        const imagesData = images.map((image) => ({
+            url: image,
+            productId: dbProduct.id,
+        }));
+
+        await prisma.productImage.createMany({
+            data: imagesData,
+        });
     });
 
     console.log("Seed Executed correct");
