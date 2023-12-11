@@ -43,8 +43,8 @@ export const CheckoutSummary = ({ isOrderPage }: Props) => {
                 <p className="mb-5">
                     {/* disclaimer */}
                     <span className="text-xs">
-                        {/*  eslint-disable-next-line react/no-unescaped-entities */}
-                        Al hacer click en "Colocar Orden", aceptas nuestros{" "}
+
+                        Al hacer click en &quotColocar Orden&quot, aceptas nuestros{" "}
                         <a href="#" className="underline">Términos y condiciones</a>
                         {" "}y{" "}
                         <a href="#" className="underline">política de privacidad</a>

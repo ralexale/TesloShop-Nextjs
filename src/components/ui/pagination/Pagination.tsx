@@ -1,6 +1,8 @@
 'use client'
+import { generatePaginationNumbers } from "@/utils";
+import clsx from "clsx";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { redirect, usePathname, useSearchParams } from "next/navigation";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 
 interface Props {
@@ -10,31 +12,39 @@ interface Props {
 
 export const Pagination = ({ totalPages }: Props) => {
 
+    // obtener la ruta y el valor del parametro page
     const pathName = usePathname()
     const searchParams = useSearchParams()
-    const currentPage = Number(searchParams.get('page')) ?? 1
+    const pageString = searchParams.get('page') ?? 1
 
+    // obtener y validar la ruta de la página actual
+    let currentPage = isNaN(+pageString) ? 1 : +pageString;
+    const allPages = generatePaginationNumbers(currentPage, totalPages)
 
+    if (currentPage < 1 || isNaN(+pageString)) {
+        redirect(pathName)
+    }
+
+    // crear en enlace de redireccion de cada link 
     const createPageUrl = (pageNumber: number | string) => {
-
         const params = new URLSearchParams(searchParams)
 
+        if (+pageNumber <= 0) {
+            return `${pathName}`
+        }
 
         if (pageNumber === '...') {
             return `${pathName}?${params.toString()}`
         }
 
-        if (+pageNumber === 0) {
-            return `${pathName}` // hrfe={"/kid"}
-        }
-
-        if (+pageNumber > totalPages) { // Next
+        if (+pageNumber > totalPages) {
             return `${pathName}?${params.toString()}`
         }
 
-
         params.set('page', pageNumber.toString())
+
         return `${pathName}?${params.toString()}`
+
     }
 
     return (
@@ -46,7 +56,7 @@ export const Pagination = ({ totalPages }: Props) => {
                     <li className="page-item">
                         <Link
                             className={`page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800  focus:shadow-none
-                            ${currentPage === 1 && 'pointer-events-none  text-gray-400 '}
+                            ${currentPage === 1 && 'pointer-events-none  text-gray-300 '}
                             
                             `}
                             href={createPageUrl(currentPage - 1)}><IoChevronBackOutline size={30} />
@@ -54,25 +64,26 @@ export const Pagination = ({ totalPages }: Props) => {
                     </li>
 
                     {
-                        Array.from({ length: totalPages }).map((link, index) => (
-                            <li key={index} className="page-item">
+                        allPages?.map((page, index) => (
+
+                            <li key={page + '-' + index} className="page-item">
                                 <Link
-                                    className={`page-link relative block py-1.5 px-3  border-0  outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none
-                                    ${currentPage === (index + 1) && 'bg-blue-600 hover:bg-blue-600  text-white hover:text-white shadow-md focus:shadow-md'}
-                                `}
-                                    href={createPageUrl(index + 1)}>{index + 1}
+                                    className={clsx("page-link relative block py-1.5 px-3  border-0  outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none",
+                                        {
+                                            'bg-blue-600 hover:bg-blue-700  text-white hover:text-white': page === currentPage
+                                        }
+                                    )}
+                                    href={createPageUrl(page)}>{page}
                                 </Link>
                             </li>
                         ))
                     }
 
-
-
                     <li className="page-item">
                         <Link
 
                             className={`page-link relative block py-1.5 px-3  border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none
-                                ${currentPage === totalPages && 'pointer-events-none  text-gray-400 '}
+                                ${currentPage === totalPages && 'pointer-events-none  text-gray-300 '}
                             `}
                             href={createPageUrl(currentPage + 1)}><IoChevronForwardOutline size={30} />
                         </Link>
@@ -80,6 +91,6 @@ export const Pagination = ({ totalPages }: Props) => {
 
                 </ul>
             </nav>
-        </div>
+        </div >
     )
 }
