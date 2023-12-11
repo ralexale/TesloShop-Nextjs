@@ -4,7 +4,7 @@ import { IoCloseOutline, IoSearchOutline, } from 'react-icons/io5'
 import clsx from 'clsx'
 import Link from 'next/link'
 
-import { optionsMenuData } from '@/utils'
+import { optionsMenuData } from '@/lib'
 import { useUiStore } from '@/store'
 
 

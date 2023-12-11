@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { genreLabels } from "@/utils";
+import { genreLabels } from "@/lib";
 import { initialData } from "@/seed/seed";
 import { ProductGrid, Title } from "@/components";
 import type { ValidCategory } from "@/interfaces";
