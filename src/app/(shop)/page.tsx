@@ -1,11 +1,29 @@
-import { titleFont } from '@/config/fonts'
-import Image from 'next/image'
+export const revalidate = 60
+import { getPaginatedProductsWithImages } from "@/actions";
+import { redirect } from "next/navigation";
+import { Title, ProductGrid, Pagination } from "@/components";
 
-export default function Home() {
+interface Props {
+  searchParams: {
+    page?: string
+  }
+}
+
+export default async function Home({ searchParams }: Props) {
+  const page = searchParams?.page ? parseInt(searchParams.page) : 1;
+
+
+  const { products, totalPages } = await getPaginatedProductsWithImages({ page })
+
+  // controlar cuando no hay productos en la paginación
+  products.length === 0 && redirect('/')
+
+
   return (
-  <section>
-    <h1>hola mundo</h1>
-    <p className={`${titleFont.className} font-bold `}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate aut deleniti esse assumenda at consequuntur ducimus nisi nam corrupti suscipit cumque nihil, exercitationem sunt beatae delectus! Distinctio at ab temporibus!</p>
-  </section>
-  )
+    <section className="min-h-[85svh]">
+      <Title title="Tienda" subtitle="Todos los productos" className="m-bW" />
+      <ProductGrid products={products} />
+      <Pagination totalPages={totalPages} />
+    </section>
+  );
 }
