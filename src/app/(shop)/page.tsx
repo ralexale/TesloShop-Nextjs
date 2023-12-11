@@ -1,7 +1,7 @@
+export const revalidate = 60
 import { getPaginatedProductsWithImages } from "@/actions";
-import { Title, ProductGrid, Pagination } from "@/components";
 import { redirect } from "next/navigation";
-
+import { Title, ProductGrid, Pagination } from "@/components";
 
 interface Props {
   searchParams: {
@@ -9,15 +9,11 @@ interface Props {
   }
 }
 
-
 export default async function Home({ searchParams }: Props) {
-
-
   const page = searchParams?.page ? parseInt(searchParams.page) : 1;
 
-  const { products, currentPage, totalPages } = await getPaginatedProductsWithImages({ page })
 
-
+  const { products, totalPages } = await getPaginatedProductsWithImages({ page })
 
   // controlar cuando no hay productos en la paginación
   products.length === 0 && redirect('/')
@@ -27,7 +23,7 @@ export default async function Home({ searchParams }: Props) {
     <section className="min-h-[85svh]">
       <Title title="Tienda" subtitle="Todos los productos" className="m-bW" />
       <ProductGrid products={products} />
-      <Pagination currentPage={currentPage} totalPages={totalPages} />
+      <Pagination totalPages={totalPages} />
     </section>
   );
 }
