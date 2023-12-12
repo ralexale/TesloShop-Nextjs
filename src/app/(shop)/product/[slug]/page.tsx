@@ -1,9 +1,11 @@
+export const revalidate = 10080; // 7 dias
+import type { Metadata } from 'next';
+import { getProductBySlug } from "@/actions";
+import { notFound } from "next/navigation";
 import { ProductMobileSlideshow, ProductSlideshow, QuantitySelector, SizeSelector } from "@/components";
 import { titleFont } from "@/config/fonts";
-import { initialData } from "@/seed/seed";
-import { notFound } from "next/navigation";
 
-const seedProducts = initialData.products
+
 
 interface Props {
   params: { slug: string };
@@ -11,11 +13,24 @@ interface Props {
 
 
 
-export default function ProductPage({ params }: Props) {
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = params;
+  const product = await getProductBySlug(slug);
+
+
+  return {
+    title: product?.title,
+    description: `pagina del producto ${product?.title}`
+  }
+}
+
+
+export default async function ProductPage({ params }: Props) {
 
   const { slug } = params;
 
-  const product = seedProducts.find(product => product.slug === slug);
+  const product = await getProductBySlug(slug)
 
   if (!product) {
     notFound();
