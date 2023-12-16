@@ -1,16 +1,16 @@
-'use client'
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 
-import { Swiper as SwiperObject } from 'swiper'
+import { Swiper as SwiperObject } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs, Autoplay } from "swiper/modules";
 
-import 'swiper/css';
-import 'swiper/css/thumbs';
+import "swiper/css";
+import "swiper/css/thumbs";
 
-import './slideshow.css'
-import { ProductSlideshowControls } from './ProductSlideshowControls';
+import "./slideshow.css";
+import { ProductSlideshowControls } from "./ProductSlideshowControls";
 
 interface Props {
     images: string[];
@@ -34,19 +34,18 @@ export const ProductSlideshow = ({ images, title, className }: Props) => {
                     disableOnInteraction: false,
                 }}
             >
-                {
-                    images.map((image) => (
-                        <SwiperSlide key={image} >
-                            <Image src={`/products/${image}`}
-                                alt={title}
-                                width={1024}
-                                height={800}
-                                priority
-                                className="rounded-lg object-cover"
-                            />
-                        </SwiperSlide>
-                    ))
-                }
+                {images.map((image) => (
+                    <SwiperSlide key={image}>
+                        <Image
+                            src={`/products/${image}`}
+                            alt={title}
+                            width={1024}
+                            height={800}
+                            priority
+                            className="rounded-lg object-cover"
+                        />
+                    </SwiperSlide>
+                ))}
                 <ProductSlideshowControls />
             </Swiper>
             <Swiper
@@ -56,25 +55,20 @@ export const ProductSlideshow = ({ images, title, className }: Props) => {
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[Navigation, Thumbs]}
-                className="mt-5 mySwiper"
+                className="mt-5 flex gap-5 mySwiper"
             >
-                {
-                    images.map((image) => (
-                        <SwiperSlide key={image} >
-                            <Image src={`/products/${image}`}
-                                alt={image}
-                                width={300}
-                                height={300}
-                                className="rounded-lg max-h-[250px] max-w-[250px] object-contain"
-                            />
-                        </SwiperSlide>
-                    ))
-                }
-
+                {images.map((image) => (
+                    <SwiperSlide key={image}>
+                        <Image
+                            src={`/products/${image}`}
+                            alt={image}
+                            width={300}
+                            height={300}
+                            className="rounded-lg max-h-[250px]  max-w-[250px] object-contain"
+                        />
+                    </SwiperSlide>
+                ))}
             </Swiper>
-
-        </div >
-
-    )
-
-}
+        </div>
+    );
+};
