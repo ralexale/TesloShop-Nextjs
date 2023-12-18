@@ -5,11 +5,10 @@ import { notFound } from "next/navigation";
 import {
     ProductMobileSlideshow,
     ProductSlideshow,
-    QuantitySelector,
-    SizeSelector,
     StockLabel,
 } from "@/components";
 import { titleFont } from "@/config/fonts";
+import { AddToCart } from "./ui/AddToCart";
 
 interface Props {
     params: { slug: string };
@@ -27,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             title: product?.title ?? "producto no encontrado",
             description: product?.description ?? "",
             // images:[] // https://misitioweb.com/products/image.png
-            images: [`/products/${product?.images[1]}`],
+            images: [`/${product?.images[1]}`],
         },
     };
 }
@@ -72,17 +71,9 @@ export default async function ProductPage({ params }: Props) {
 
                     <p className="text-xl mb-5 font-bold">${product.price}</p>
                 </div>
-                {/* Selector de tallas */}
-                <SizeSelector
-                    availableSizes={product.sizes}
-                    selectedSize={product.sizes[0]}
-                />
 
-                {/* Selector de cantidad */}
-                <QuantitySelector quantity={product.inStock} />
-
-                {/* botón  */}
-                <button className="btn-primary my-5">Agregar al carrito</button>
+                {/* Tallas y selector de cantidad */}
+                <AddToCart product={product} />
 
                 {/* Descripción */}
                 <h3 className="font-bold text-sm">Descripción</h3>
