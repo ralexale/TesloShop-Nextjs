@@ -9,7 +9,6 @@ export * from "./product/stock-label/StockLabel";
 export * from "./products/product-grid/ProductGrid";
 export * from "./products/product-grid/ProductGridItem";
 export * from "./products/products-summary/ProductsSumary";
-export * from "./products/products-edit/ProductsEdit";
 
 //* ui
 export { Sidebar } from "./ui/sidebar/Sidebar";

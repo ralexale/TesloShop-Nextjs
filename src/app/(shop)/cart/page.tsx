@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CartSummary, ProductsEdit, Title } from "@/components";
+import { CartSummary, Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import { redirect } from "next/navigation";
 import { ProductsInCart } from "./ui/ProductsInCart";
