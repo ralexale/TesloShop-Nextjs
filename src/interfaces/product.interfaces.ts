@@ -1,5 +1,5 @@
 export interface Product {
-    id?: string;
+    id: string;
     description: string;
     images: string[];
     inStock: number;
@@ -10,6 +10,17 @@ export interface Product {
     title: string;
     // todo: type: Type;
     gender: ValidCategory;
+}
+
+export interface CartProduct {
+    id: string;
+    slug: string;
+    title: string;
+    price: number;
+    quantity: number;
+    size: Size;
+    image: string;
+    inStock: number;
 }
 
 export type GenreLabel = { title: string; subtitle: string };
