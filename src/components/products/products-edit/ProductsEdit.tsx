@@ -4,15 +4,13 @@ import Image from "next/image";
 import { Product } from "@/interfaces";
 
 interface Props {
-    produtcs: Product[]
+    products: Product[];
 }
 
-
-
-export const ProductsEdit = ({ produtcs }: Props) => {
+export const ProductsEdit = ({ products }: Props) => {
     return (
         <>
-            {produtcs.map((product) => (
+            {products.map((product) => (
                 <div key={product.slug} className="flex">
                     <Image
                         src={`/products/${product.images[0]}`}
@@ -31,12 +29,15 @@ export const ProductsEdit = ({ produtcs }: Props) => {
                         <div className="flex gap-3">
                             <QuantitySelector quantity={2} />
                             <button className="underline bg-red-500 p-2 rounded ">
-                                <IoTrashOutline className="text-white" size={20} />
+                                <IoTrashOutline
+                                    className="text-white"
+                                    size={20}
+                                />
                             </button>
                         </div>
                     </div>
                 </div>
             ))}
         </>
-    )
-}
+    );
+};

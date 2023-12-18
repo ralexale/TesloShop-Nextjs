@@ -30,7 +30,7 @@ export const ProductSlideshow = ({ images, title, className }: Props) => {
                 pagination={{ clickable: true }}
                 thumbs={{ swiper: thumbsSwiper }}
                 autoplay={{
-                    delay: 2500,
+                    delay: 4000,
                     disableOnInteraction: false,
                 }}
             >

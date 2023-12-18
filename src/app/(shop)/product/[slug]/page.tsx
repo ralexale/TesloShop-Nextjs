@@ -5,8 +5,6 @@ import { notFound } from "next/navigation";
 import {
     ProductMobileSlideshow,
     ProductSlideshow,
-    QuantitySelector,
-    SizeSelector,
     StockLabel,
 } from "@/components";
 import { titleFont } from "@/config/fonts";
@@ -20,6 +18,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const slug = params.slug;
     const product = await getProductBySlug(slug);
+
     return {
         title: product?.title ?? "producto no encontrado",
         description: product?.description ?? "",
@@ -72,7 +71,11 @@ export default async function ProductPage({ params }: Props) {
 
                     <p className="text-xl mb-5 font-bold">${product.price}</p>
                 </div>
-                <AddToCart inStock={product.inStock} sizes={product.sizes} />
+
+                {/* Tallas y selector de cantidad */}
+                <AddToCart product={product} />
+
+                {/* Descripción */}
                 <h3 className="font-bold text-sm">Descripción</h3>
                 <p className="font-light">{product.description}</p>
             </div>

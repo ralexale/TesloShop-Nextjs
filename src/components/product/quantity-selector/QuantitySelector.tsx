@@ -46,6 +46,7 @@ export const QuantitySelector = ({
                         <motion.span
                             key="quantity"
                             animate={{ opacity: 0, y: togglePrev }}
+                            //animamos para que cuando salga haga el efecto de entrando o saliendo
                             exit={{ opacity: 1, y: [-togglePrev, 0] }}
                             transition={{ duration: 0.2, ease: "backInOut" }}
                         >
@@ -53,6 +54,7 @@ export const QuantitySelector = ({
                         </motion.span>
                     )}
                 </AnimatePresence>
+                {/* despues que se ejecute la animacion va a aparecer este valor */}
                 {!animate && <span>{quantity}</span>}
             </div>
 
