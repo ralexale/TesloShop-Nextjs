@@ -73,16 +73,12 @@ export const useCartStore = create<State>()(
             removeProduct(product: CartProduct) {
                 const { cart } = get();
 
-                const findIndexProduct = cart.findIndex(
+                const updatedCartProducts = cart.filter(
                     (item) =>
-                        item.id === product.id && item.size === product.size
+                        item.id !== product.id || item.size !== product.size
                 );
 
-                const removedProduct = [...cart];
-
-                removedProduct.splice(findIndexProduct, 1);
-
-                set({ cart: removedProduct });
+                set({ cart: updatedCartProducts });
             },
         }),
         { name: "shopping-cart" }
