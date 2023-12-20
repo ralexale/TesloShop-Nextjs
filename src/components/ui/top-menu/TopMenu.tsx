@@ -4,9 +4,9 @@ import { IoSearchOutline, IoCartOutline } from "react-icons/io5";
 import Link from "next/link";
 import { useCartStore, useUiStore } from "@/store";
 import { useState, useEffect } from "react";
+import { genreLabels } from "@/lib";
 
 export const TopMenu = () => {
-    // const { openSideMenu } = useUiStore()
     const openSideMenu = useUiStore((state) => state.openSideMenu);
     const TotalItemsInCart = useCartStore((state) => state.getTotalItems());
 
@@ -32,30 +32,15 @@ export const TopMenu = () => {
 
             {/* Center Menu */}
             <div className="hidden sm:block">
-                <Link
-                    className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
-                    href="/gender/men"
-                >
-                    Hombres
-                </Link>
-                <Link
-                    className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
-                    href="/gender/women"
-                >
-                    Mujeres
-                </Link>
-                <Link
-                    className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
-                    href="/gender/kid"
-                >
-                    Niños
-                </Link>
-                <Link
-                    className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
-                    href="/gender/unisex"
-                >
-                    Unisex
-                </Link>
+                {genreLabels.map((genre) => (
+                    <Link
+                        key={genre.label}
+                        className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
+                        href={`/gender/${genre.url}`}
+                    >
+                        {genre.label}
+                    </Link>
+                ))}
             </div>
 
             {/* Search , Cart , Menu  */}
@@ -64,10 +49,13 @@ export const TopMenu = () => {
                     <IoSearchOutline className="w-5 h-5" />
                 </Link>
 
-                <Link href="/cart" className="mx-2">
+                <Link
+                    href={TotalItemsInCart === 0 && loaded ? "/empty" : "/cart"}
+                    className="mx-2"
+                >
                     <div className="relative">
                         {loaded && TotalItemsInCart > 0 && (
-                            <span className="absolute text-xs rounded-full fade-in text-white px-1 -right-2 font-bold -top-2 bg-blue-500">
+                            <span className="absolute fade-in text-xs rounded-full fade-in text-white px-1 -right-2 font-bold -top-2 bg-blue-500">
                                 {TotalItemsInCart}
                             </span>
                         )}
