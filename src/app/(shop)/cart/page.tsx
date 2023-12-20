@@ -1,14 +1,7 @@
 import Link from "next/link";
-import { CartSummary, Title } from "@/components";
-import { initialData } from "@/seed/seed";
-import { redirect } from "next/navigation";
+import { Title } from "@/components";
 import { ProductsInCart } from "./ui/ProductsInCart";
-
-const productsInCard = [
-    initialData.products[0],
-    initialData.products[1],
-    initialData.products[2],
-];
+import { OrderSummary } from "./ui/OrderSummary";
 
 export const metadata = {
     title: "Cart",
@@ -16,8 +9,6 @@ export const metadata = {
 };
 
 export default function CartPage() {
-    productsInCard.length === 0 && redirect("/empty");
-
     return (
         <section className="flex justify-center items-center mb-72 px-10 sm:px-0">
             <div className="flex flex-col w-[1000px] ">
@@ -36,7 +27,7 @@ export default function CartPage() {
                     </div>
 
                     {/* Checkout - Resumen de Orden */}
-                    <CartSummary />
+                    <OrderSummary />
                 </div>
             </div>
         </section>

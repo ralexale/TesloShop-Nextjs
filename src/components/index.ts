@@ -17,12 +17,12 @@ export * from "./ui/footer/Footer";
 export * from "./ui/not-found/PageNotFound";
 export * from "./ui/pagination/Pagination";
 export * from "./ui/title/Title";
+export * from "./ui/spinner/Spinner";
 
 //* checkout
 export * from "./checkout/checkout-summary/CheckoutSummary";
 
 //* cart
-export * from "./cart/cart-summary/CartSummary";
 
 //* new-acount
 export { NewAccountForm } from "./new-account/new-account-form/NewAccountForm";

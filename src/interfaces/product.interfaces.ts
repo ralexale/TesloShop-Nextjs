@@ -23,7 +23,12 @@ export interface CartProduct {
     inStock: number;
 }
 
-export type GenreLabel = { title: string; subtitle: string };
+export type GenreLabel = {
+    title: string;
+    subtitle: string;
+    label: string;
+    url: string;
+};
 export type ValidCategory = "men" | "women" | "kid" | "unisex";
 export type Size = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
 export type Type = "shirts" | "pants" | "hoodies" | "hats";

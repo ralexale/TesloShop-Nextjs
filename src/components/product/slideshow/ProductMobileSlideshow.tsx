@@ -1,12 +1,15 @@
-'use client'
+"use client";
+
 import Image from "next/image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from 'swiper/modules';
+import { Autoplay, FreeMode, Navigation, Pagination } from "swiper/modules";
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import './slideshow.css'
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+
+import "./slideshow.css";
 
 interface Props {
     images: string[];
@@ -15,40 +18,33 @@ interface Props {
 }
 
 export const ProductMobileSlideshow = ({ images, title, className }: Props) => {
-
-
     return (
         <div className={className}>
             <Swiper
-                modules={[Autoplay, Pagination]}
-                slidesPerView={1}
                 style={{
-                    '--swiper-pagination-color': 'gray',
-                    width: '100dvw',
-                    height: '500px'
-                } as React.CSSProperties}
-                pagination={{ clickable: true }}
+                    width: "100vw",
+                    height: "500px",
+                }}
+                pagination
                 autoplay={{
                     delay: 2500,
-                    disableOnInteraction: false,
                 }}
+                modules={[FreeMode, Autoplay, Pagination]}
+                className="mySwiper2"
             >
-                {
-                    images.map((image) => (
-                        <SwiperSlide key={image} >
-                            <Image src={`/products/${image}`}
-                                alt={title}
-                                width={600}
-                                height={500}
-                                priority
-                                className="object-cover"
-                            />
-                        </SwiperSlide>
-                    ))
-                }
+                {images.map((image) => (
+                    <SwiperSlide key={image}>
+                        <Image
+                            width={600}
+                            height={500}
+                            src={`/products/${image}`}
+                            alt={title}
+                            priority
+                            className="object-fill"
+                        />
+                    </SwiperSlide>
+                ))}
             </Swiper>
-        </div >
-
-    )
-
-}
+        </div>
+    );
+};

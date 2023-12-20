@@ -9,6 +9,7 @@ import {
 } from "@/components";
 import { titleFont } from "@/config/fonts";
 import { AddToCart } from "./ui/AddToCart";
+import { currencyFormat } from "@/utils";
 
 interface Props {
     params: { slug: string };
@@ -69,7 +70,9 @@ export default async function ProductPage({ params }: Props) {
                         {product.title}
                     </h1>
 
-                    <p className="text-xl mb-5 font-bold">${product.price}</p>
+                    <p className="text-xl mb-5 font-bold">
+                        {currencyFormat(product.price)}
+                    </p>
                 </div>
 
                 {/* Tallas y selector de cantidad */}
