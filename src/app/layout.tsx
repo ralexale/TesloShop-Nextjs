@@ -3,6 +3,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { inter } from "@/config/fonts";
 
 import "./globals.css";
+import { ProviderAuth } from "@/components";
 
 export const metadata: Metadata = {
     title: {
@@ -21,7 +22,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-                {children}
+                <ProviderAuth>{children}</ProviderAuth>
                 <SpeedInsights />
             </body>
         </html>

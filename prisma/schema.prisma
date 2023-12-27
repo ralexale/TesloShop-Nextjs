@@ -2,10 +2,17 @@ generator client {
   provider = "prisma-client-js"
 }
 
+//vercel db
+
+// datasource db {
+//   provider  = "postgresql"
+//   url       = env("POSTGRES_PRISMA_URL")
+//   directUrl = env("POSTGRES_URL_NON_POOLING")
+// }
+
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum Size {
@@ -23,6 +30,11 @@ enum Gender {
   women
   kid
   unisex
+}
+
+enum Role {
+  admin
+  user
 }
 
 model Category {
@@ -53,9 +65,18 @@ model Product {
 }
 
 model ProductImage {
-  id  Int    @id @default(autoincrement())
-  url String
-
+  id        Int     @id @default(autoincrement())
+  url       String
   product   Product @relation(fields: [productId], references: [id])
   productId String
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime?
+  password      String
+  role          Role      @default(user)
+  image         String?
 }

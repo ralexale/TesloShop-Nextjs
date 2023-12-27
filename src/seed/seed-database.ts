@@ -4,13 +4,20 @@ import prisma from "../lib/prisma/prisma";
 async function main() {
     // 1. borrar registros previos
     await Promise.all([
+        prisma.user.deleteMany(),
         prisma.productImage.deleteMany(),
         prisma.product.deleteMany(),
         prisma.category.deleteMany(),
     ]);
 
+    const { categories, products, users } = initialData;
+
+    // 5. usuarios
+    await prisma.user.createMany({
+        data: users,
+    });
+
     // 2. Categorias
-    const { categories, products } = initialData;
 
     const categoriesData = categories.map((name) => ({ name }));
 
@@ -41,7 +48,7 @@ async function main() {
             },
         });
 
-        // Imagenes
+        // 4.Imagenes
 
         const imagesData = images.map((image) => ({
             url: image,
