@@ -4,10 +4,10 @@ import { IoSearchOutline, IoCartOutline } from "react-icons/io5";
 import Link from "next/link";
 import { useCartStore, useUiStore } from "@/store";
 import { useState, useEffect } from "react";
-import { genreLabels } from "@/lib";
 
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { genreLabels } from "@/utils";
 
 export const TopMenu = () => {
     const openSideMenu = useUiStore((state) => state.openSideMenu);

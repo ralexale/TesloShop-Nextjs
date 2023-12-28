@@ -4,10 +4,43 @@ import Credentials from "next-auth/providers/credentials";
 import NextAuth, { type NextAuthConfig } from "next-auth";
 import prisma from "@/lib/prisma/prisma";
 
+const autenticatedRoutes = [
+    "/checkout/address",
+    "/profile",
+    "/checkout",
+    "/orders",
+];
+
 export const authConfig: NextAuthConfig = {
     pages: {
         signIn: "/auth/login",
         newUser: "/auth/new-account",
+    },
+    callbacks: {
+        authorized({ auth, request: { nextUrl } }) {
+            const isLoggedIn = !!auth?.user;
+
+            const isOnProtectRoute = autenticatedRoutes.some((route) =>
+                nextUrl.pathname.startsWith(route)
+            );
+
+            if (isOnProtectRoute) {
+                if (!isLoggedIn)
+                    return Response.redirect(new URL("/auth/login", nextUrl));
+            }
+            return true;
+        },
+
+        jwt({ token, user }) {
+            if (user) {
+                token.data = user;
+            }
+            return token;
+        },
+        session({ session, token, user }) {
+            session.user = token.data as any;
+            return session;
+        },
     },
     providers: [
         Credentials({
@@ -34,7 +67,7 @@ export const authConfig: NextAuthConfig = {
 
                 // Regresar el usuario sin el password
                 const { password: _, ...rest } = user;
-                console.log({ rest });
+
                 return rest;
             },
         }),

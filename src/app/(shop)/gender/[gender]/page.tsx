@@ -1,5 +1,5 @@
 export const revalidate = 60; // 60 segundos
-import { genreLabels } from "@/lib";
+import { genreLabels } from "@/utils";
 import { getPaginatedProductsWithImages } from "@/actions";
 import { notFound } from "next/navigation";
 import { Pagination, ProductGrid, Title } from "@/components";
@@ -20,8 +20,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     const label = genreLabels.find((genre) => genre.url === gender);
     const isValidGender = genreLabels.some((genre) => genre.url === gender);
     !isValidGender && notFound();
-
-    // console.log(genreLabels.some((genre) => genre.url !== gender));
 
     // validamos si existe el parametro page en la url
     const page = searchParams?.page ? parseInt(searchParams.page) : 1;

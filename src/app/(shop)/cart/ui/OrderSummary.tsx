@@ -4,7 +4,7 @@ import { useCartStore } from "@/store";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
-import { currencyFormat } from "../../../../utils/currencyFormat";
+import { currencyFormat } from "../../../../utils/functions/currencyFormat";
 
 export const OrderSummary = () => {
     const [loaded, setLoaded] = useState(false);

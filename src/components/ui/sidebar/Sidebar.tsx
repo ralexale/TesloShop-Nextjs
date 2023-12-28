@@ -1,14 +1,17 @@
 "use client";
 
-import { IoCloseOutline, IoSearchOutline } from "react-icons/io5";
+import {
+    IoCloseOutline,
+    IoLogInOutline,
+    IoSearchOutline,
+} from "react-icons/io5";
 import clsx from "clsx";
-import Link from "next/link";
 
-import { optionsMenuData } from "@/lib";
 import { useUiStore } from "@/store";
-import { logout } from "@/actions";
+import { OptionsUser } from "./OptionsUser";
+import { OptionsAdmin } from "./OptionsAdmin";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import Link from "next/link";
 
 export const Sidebar = () => {
     const { isSideMenuOpen, closeSideMenu } = useUiStore();
@@ -16,8 +19,8 @@ export const Sidebar = () => {
     const { data: session } = useSession();
     const isAuthenticated = !!session?.user;
 
-    // const isSideMenuOpen = useUiStore(state => state.isSideMenuOpen)
-    // const closeSideMenu = useUiStore(state => state.closeSideMenu)
+    console.log(isAuthenticated);
+
     return (
         <aside>
             {isSideMenuOpen && (
@@ -54,55 +57,27 @@ export const Sidebar = () => {
 
                 {/* Opciones del Menú */}
 
-                {optionsMenuData.map((option, index) => {
-                    if (isAuthenticated && option.title === "Ingresar") {
-                        return null; // Oculta el botón "Ingresar" si está autenticado
-                    }
+                {isAuthenticated ? (
+                    <OptionsUser
+                        closeSideMenu={closeSideMenu}
+                        user={session?.user}
+                        isAuth={isAuthenticated}
+                    />
+                ) : (
+                    <Link
+                        href="/auth/login"
+                        onClick={closeSideMenu}
+                        className="flex items-center  p-4 hover:bg-gray-100 rounded transition-colors"
+                    >
+                        <IoLogInOutline size={30} />
+                        <span className="ml-3 text-xl">Ingresar</span>
+                    </Link>
+                )}
 
-                    if (!isAuthenticated && option.title === "Salir") {
-                        return null; // Oculta el botón "Salir" si no está autenticado
-                    }
-
-                    if (option.title === "Salir") {
-                        return (
-                            <div key={index}>
-                                <button
-                                    key={option.title}
-                                    className="flex w-full items-center  p-4 hover:bg-gray-100 rounded transition-colors"
-                                    onClick={() => logout()}
-                                >
-                                    {option.icon}
-                                    <span className="ml-3 text-xl">
-                                        {option.title}
-                                    </span>
-                                </button>
-                                {index === 3 && (
-                                    <div className="w-full h-px bg-gray-200 " />
-                                )}
-                            </div>
-                        );
-                    }
-
-                    return (
-                        <div key={index}>
-                            <Link
-                                href={option.href}
-                                onClick={closeSideMenu}
-                                className="flex items-center  p-4 hover:bg-gray-100 rounded transition-colors"
-                            >
-                                {option.icon}
-                                <span className="ml-3 text-xl">
-                                    {option.title}
-                                </span>
-                            </Link>
-                            {/* Line separetor */}
-                            {index === 3 ||
-                                (index === 2 && (
-                                    <div className="w-full h-px bg-gray-200 my-4" />
-                                ))}
-                        </div>
-                    );
-                })}
+                {/* opciones del admin  */}
+                {session?.user?.role === "admin" && (
+                    <OptionsAdmin closeSideMenu={closeSideMenu} />
+                )}
             </nav>
         </aside>
     );

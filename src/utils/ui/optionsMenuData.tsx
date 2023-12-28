@@ -13,25 +13,27 @@ interface OptionsMenuData {
     href: string;
 }
 
-export const optionsMenuData: OptionsMenuData[] = [
+export const optionsMenuUser: OptionsMenuData[] = [
     { icon: <IoPersonOutline size={30} />, title: "Perfil", href: "/profile" },
     { icon: <IoTicketOutline size={30} />, title: "Ordenes", href: "/orders" },
-    {
-        icon: <IoLogInOutline size={30} />,
-        title: "Ingresar",
-        href: "/auth/login",
-    },
     {
         icon: <IoLogOutOutline size={30} />,
         title: "Salir",
         href: "/auth/login",
     },
+];
+
+export const optionsMenuAdmin: OptionsMenuData[] = [
     {
         icon: <IoShirtOutline size={30} />,
         title: "Productos",
         href: "/products",
     },
-    { icon: <IoTicketOutline size={30} />, title: "Ordenes", href: "/orders" },
+    {
+        icon: <IoTicketOutline size={30} />,
+        title: "Ordenes",
+        href: "/orders",
+    },
     {
         icon: <IoPeopleOutline size={30} />,
         title: "Usuarios",

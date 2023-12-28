@@ -4,7 +4,7 @@ import { IoInformationOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { authenticate } from "@/actions";
@@ -12,9 +12,15 @@ import { titleFont } from "@/config/fonts";
 
 export const LoginForm = () => {
     const [state, dispatch] = useFormState(authenticate, undefined);
-    const router = useRouter();
+
+    // const router = useRouter();
     useEffect(() => {
-        state === "Success" && router.push("/");
+        // state === "Success" && router.push("/");
+
+        if (state === "Success") {
+            //* si lo hacemos de esta manera vamos a recargar el navegador
+            window.location.replace("/");
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state]);
@@ -32,19 +38,23 @@ export const LoginForm = () => {
                 </h1>
 
                 <div className="flex flex-col ">
-                    <label htmlFor="email">Correo electrónico</label>
-                    <input
-                        className="px-5 py-2 border bg-gray-200 rounded mb-5"
-                        type="email"
-                        name="email"
-                    />
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="email">Correo electrónico</label>
+                        <input
+                            className="px-5 py-2 border bg-gray-200 rounded mb-5"
+                            type="email"
+                            name="email"
+                        />
+                    </div>
 
-                    <label htmlFor="password">Contraseña</label>
-                    <input
-                        className="px-5 py-2 border bg-gray-200 rounded mb-5"
-                        type="password"
-                        name="password"
-                    />
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="password">Contraseña</label>
+                        <input
+                            className="px-5 py-2 border bg-gray-200 rounded mb-5"
+                            type="password"
+                            name="password"
+                        />
+                    </div>
 
                     {state === "CredentialsSignin" && (
                         <div
@@ -60,10 +70,6 @@ export const LoginForm = () => {
                             </>
                         </div>
                     )}
-
-                    {/* <button type="submit" className="btn-primary">
-                        Ingresar
-                    </button> */}
 
                     <LoginButton />
 
