@@ -16,7 +16,6 @@ interface State {
     addProductToCart: (product: CartProduct) => void;
     updateProductQuantity: (product: CartProduct, quantity: number) => void;
     removeProduct: (product: CartProduct) => void;
-    // removeProduct
 }
 
 export const useCartStore = create<State>()(

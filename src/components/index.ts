@@ -22,10 +22,5 @@ export * from "./ui/spinner/Spinner";
 //* checkout
 export * from "./checkout/checkout-summary/CheckoutSummary";
 
-//* cart
-
-//* new-acount
-export { NewAccountForm } from "./new-account/new-account-form/NewAccountForm";
-
-//* login
-export { FormLogin } from "./login/form-login/FormLogin";
+//* providers
+export * from "./provider/ProviderAuth";

@@ -4,11 +4,16 @@ import { IoSearchOutline, IoCartOutline } from "react-icons/io5";
 import Link from "next/link";
 import { useCartStore, useUiStore } from "@/store";
 import { useState, useEffect } from "react";
-import { genreLabels } from "@/lib";
+
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
+import { genreLabels } from "@/utils";
 
 export const TopMenu = () => {
     const openSideMenu = useUiStore((state) => state.openSideMenu);
     const TotalItemsInCart = useCartStore((state) => state.getTotalItems());
+
+    const pathName = usePathname().split("/").pop();
 
     const [loaded, setLoaded] = useState(false);
 
@@ -35,7 +40,12 @@ export const TopMenu = () => {
                 {genreLabels.map((genre) => (
                     <Link
                         key={genre.label}
-                        className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
+                        className={clsx(
+                            "m-2 p-2 rounded-md transition-all hover:bg-gray-100",
+                            {
+                                "bg-gray-200 ": pathName == genre.url,
+                            }
+                        )}
                         href={`/gender/${genre.url}`}
                     >
                         {genre.label}

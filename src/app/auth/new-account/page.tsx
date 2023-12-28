@@ -1,10 +1,9 @@
-
-import { NewAccountForm } from '@/components';
+import { RegisterForm } from "./ui/RegisterForm";
 
 export default function NewAccountPage() {
-  return (
-    <section className="flex flex-col min-h-screen pt-32 sm:pt-52">
-      <NewAccountForm />
-    </section>
-  );
+    return (
+        <section className="flex flex-col items-center justify-center min-h-screen ">
+            <RegisterForm />
+        </section>
+    );
 }

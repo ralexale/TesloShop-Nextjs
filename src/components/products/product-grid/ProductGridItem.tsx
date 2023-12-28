@@ -3,7 +3,7 @@ import { Product } from "@/interfaces";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { currencyFormat } from "../../../utils/currencyFormat";
+import { currencyFormat } from "../../../utils/functions/currencyFormat";
 
 interface Props {
     product: Product;
